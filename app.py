@@ -51,7 +51,7 @@ def split_into_sentences(text):
     sentences = [s.strip() for s in sentences]
     return sentences
 
-# Make a request to the YouTube Data API's playlistItems.list method
+# The playlist_id and pageTokens value are specific to MRU Dev. Econ playlist
 playlist_id = 'PL-uRhZ_p-BM4pQXFm4hCmMR7LhTXje61m'
 pageTokens = ['','EAAaBlBUOkNESQ', 'EAAaBlBUOkNHUQ', 'EAAaB1BUOkNKWUI','EAAaB1BUOkNNZ0I','EAAaB1BUOkNQb0I']
 for i in pageTokens:
