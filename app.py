@@ -3,9 +3,12 @@ import re
 import csv
 import os
 from youtube_transcript_api import YouTubeTranscriptApi
+from dotenv import load_dotenv
 
+load_dotenv()
 # Set up the YouTube Data API client
 api_key = os.getenv('YOUTUBE_API_KEY')
+print(api_key)
 youtube = build('youtube', 'v3', developerKey=api_key)
 
 alphabets = "([A-Za-z])"
@@ -57,7 +60,7 @@ pageTokens = ['','EAAaBlBUOkNESQ', 'EAAaBlBUOkNHUQ', 'EAAaB1BUOkNKWUI','EAAaB1BU
 for i in pageTokens:
     request = youtube.playlistItems().list(
         part='snippet',
-        pageToken= '',
+        pageToken= i,
         playlistId=playlist_id,
         maxResults=50)
 
@@ -82,11 +85,10 @@ for i in pageTokens:
             for i in range(0, len(sentences), 1):
                 block = sentences[i:i+1]
                 s = ' '.join([str(elem) for elem in block])
-                data = [title, s, f'https://www.youtube.com/watch?v={video_id}']
-                with open('transcripts_1sentences.csv', 'a', encoding='UTF8') as f:
-                    writer = csv.writer(f)
-                    writer.writerow(data)
-                    f.close()
+                #data = [title, s, f'https://www.youtube.com/watch?v={video_id}']
+                f = open('transcript_all.txt', 'a', encoding='UTF8')
+                f.write(s)
+                f.close()
         except Exception as e:
             f = open('error.txt', 'a')
             f.write(video['video_id'])
